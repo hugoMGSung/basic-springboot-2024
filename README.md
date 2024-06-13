@@ -85,17 +85,53 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 
 ## 2일차
 - Oracle 도커로 설치
-	- 설치되어 있는 Oracle 삭제
+	- Docker는 Virtual Machine을 업그레이드한 시스템
+	- 윈도우 서비스 내(services.msc) Oracle 관련 서비스 종료
+	- Docker에서 Oracle 이미지 컨테이너를 다운로드 후 실행
+	- Docker 설치시 오류 Docker Desktop - WSL Update failed
+		- Docker Desktop 실행종료 후
+		- Windows 업데이트 실행 최신판 재부팅
+		- https://github.com/microsoft/WSL/releases, wsl.2.x.x.x64.msi 다운로드 설치 한 뒤
+		- Docker Desktop 재실행
+	- Oracle 최신판 설치
+	```shell
+	> docker --version
+	Docker version 26.1.1, build 4cf5afa
+	> docker pull container-registry.oracle.com/database/free:latest
+	latest: ....
+	... : Download complete
+	> docker images
+	REPOSITORY                                    TAG       IMAGE ID       CREATED       SIZE
+	container-registry.oracle.com/database/free   latest    7510f8869b04   7 weeks ago   8.7GB
+	> docker run -d -p 1521:1521 --name oracle container-registry.oracle.com/database/free
+	....
+	> docker logs oracle
+	...
+	#########################
+	DATABASE IS READY TO USE!
+	#########################
+	...	
+	> docker exec -it oracle bash
+	bash-4.4$ 
+	```
+
+	- Oracle system 사용자 비번 oracle로 설정
+	```shell
+	bash-4.4$ ./setPassword.sh oracle
+	```
+
+	- Oracle 접속확인
+		- DBeaver 탐색기 > Create > Connection
 
 - Database 설정
-	- H2 DB - Spring Boot에서 손쉽게 사용한 Inmemory DB, Oracle, MySql, SQLServer과 쉽게 호환
 	- Oracle - 운영시 사용할 DB
-	- MySQL - Optional 설명할 DB
 	- Oracle PKNUSB / pknu_p@ss 로 생성
-		- 콘솔
-		```shell
-		> sqlplus system/password
-		SQL> 
-		```
+	- 콘솔(도커 / 일반 Oracle)
+	```shell
+	> sqlplus system/password
+	SQL> 
+	```
 
+	- H2 DB - Spring Boot에서 손쉽게 사용한 Inmemory DB, Oracle, MySql, SQLServer과 쉽게 호환
+	- MySQL - Optional 설명할 DB	
 	
