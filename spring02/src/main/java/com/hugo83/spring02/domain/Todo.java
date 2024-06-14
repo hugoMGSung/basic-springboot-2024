@@ -2,15 +2,14 @@ package com.hugo83.spring02.domain;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+// import lombok.Getter;
+// import lombok.Setter;
+// import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class Todo {
-    private Integer tno;
+    private int tno;
     
     private String title;
 
@@ -18,5 +17,5 @@ public class Todo {
 
     private String writer;
 
-    private Integer isDone;
+    private int isDone;
 }

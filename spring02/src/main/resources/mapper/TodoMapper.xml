@@ -5,7 +5,7 @@
 
 <mapper namespace="com.hugo83.spring02.mapper.TodoMapper">
 
-    <select id="selectTodos" resultType="hashmap">
+    <select id="selectTodos" resultType="Todo">
         SELECT TNO
              , TITLE
              , DUEDATE
@@ -14,6 +14,13 @@
           FROM TODOS
     </select>
 
-    <select>
+    <select id="selectTodo" resultType="Todo" parameterType="int">
+        SELECT TNO
+             , TITLE
+             , DUEDATE
+             , WRITER
+             , ISDONE
+          FROM TODOS
+         WHERE TNO = #{tno}
     </select>
 </mapper>
