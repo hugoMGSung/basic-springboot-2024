@@ -208,6 +208,6 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 		8. (Controller) ~~경우에 따라 @SpringBootApplication 클래스에 SqlSessionFactory 빈을 생성 메서드 작성~~
 		9. (View) /resource/templates/ Thymeleaf html 생성, 작성
 
-	
+		
 
 
