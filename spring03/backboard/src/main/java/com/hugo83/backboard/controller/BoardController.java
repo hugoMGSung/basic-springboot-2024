@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hugo83.backboard.entity.Board;
@@ -13,6 +14,8 @@ import com.hugo83.backboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 // import org.springframework.web.bind.annotation.RequestMethod;
 // import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RequiredArgsConstructor
@@ -30,5 +33,11 @@ public class BoardController {
         model.addAttribute("boardList", boardList); // thymeleaf, mustache, jsp등 view로 보내는 기능!!!
         return "board/list"; // templates/board/list.html 렌더링해서 리턴하라!
     }
-    
+
+    @GetMapping("/detail/{bno}")
+    public String detail(Model model, @PathVariable("bno") Long bno) throws Exception {
+        Board board = this.boardService.getBoard(bno);
+        model.addAttribute("board", board);
+        return "board/detail";
+    }
 }
