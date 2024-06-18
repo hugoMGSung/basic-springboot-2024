@@ -14,9 +14,7 @@ import com.hugo83.backboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 // import org.springframework.web.bind.annotation.RequestMethod;
 // import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
+// import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @RequestMapping("/board") // Restful URL은 /board로 시작
