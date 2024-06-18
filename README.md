@@ -281,17 +281,17 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 	- 프로젝트 새로 로드, 초기화 
 
 - Spring Boot JPA 프로젝트 개발 계속
-	15\. jUnit 테스트로 CRUD 확인
-	16\. /service/BoardService.java 생성 후 getList() 메서드 작성
-	17. /controller/BoardController.java 생성 후 /board/list 실행할 수 있는 메서드 작성
-	18. /templates/board/list.html 생성
+	1. jUnit 테스트로 CRUD 확인
+	2. /service/BoardService.java 생성 후 getList() 메서드 작성
+	3. /controller/BoardController.java 생성 후 /board/list 실행할 수 있는 메서드 작성
+	4. /templates/board/list.html 생성
 		- Thymeleaf 속성
 			- th:if="${board != null}"
 			- th:each="board : ${boardList}"
 			- th:text="${board.title}"
-	19. /service/BoardSerivce.java에 getBoard() 메서드 추가
-	20. /controller/BoardController.java에 /board/detail/{bno} 실행 메서드 작성
-	21. /templates/board/detail.html 생성
+	5. /service/BoardSerivce.java에 getBoard() 메서드 추가
+	6. /controller/BoardController.java에 /board/detail/{bno} 실행 메서드 작성
+	7. /templates/board/detail.html 생성
 
 
 
