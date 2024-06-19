@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hugo83.backboard.entity.Board;
 
+// 인터페이스만 있어도 CRUD가 가능
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
     
