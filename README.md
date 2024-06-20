@@ -336,7 +336,37 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 
 ## 7일차
 - Spring Boot JPA 프로젝트 개발 계속
-	1. 페이징 
+	0. 개념
+		```sql
+		-- Oracle 전용(11g 이하는 이 쿼리가 동작안함)
+		SELECT b1_0.bno, b1_0.content, b1_0.create_date, b1_0.title 
+		  FROM board b1_0 OFFSET 0    		-- 0, 10, 20 페이지 사이즈만큼 증가
+		  ROWS FETCH FIRST 10 ROWS ONLY 	-- 페이지사이즈
+		```
+	1. 페이징(중요!)
+		- /repository/BoardRepository.java findAll(pageable) 인터페이스 메서드 작성
+		- /service/BoardSerivce.java getList(page) 메서드 작성
+		- /controller/BoardController.java list() 메서드 수정
+		- /templates/board/list.html boardList -> paging 변경
+		- /templates/board/list.html 하단 페이징 버튼 추가, thymeleaf 기능추가
+		- /service/BoardService.java getList() 최신순 역정렬로 변경
+		- /templates/board/list.html에 게시글 번호 수정
+	2. /templates/board/list.html td 뱃지태그 추가
+
+	3. H2 -> Oracle로 DB변경
+		- build.gradle, Oracle 디펜던시 추가
+		- application.properties Oracle 관련 설정 추가, H2 설정 주석처리
+		- 재시작
+
+	4. 스프링 시큐리티(그다음 중요!)
+		- (설정) build.gradle 스프링 시큐리티 관련 디펜던시 추가
+		- (설정) Gradle 재빌드, 서버 실행
+		- user / 로그상 UUID(서버실행시 마다 변경) 입력
+		- /security/SecurityConfig.java 보안설정 파일 생성, 작성 -> 시큐리티를 다시 풀어주는 일
+
+		- /entity/Member.java 생성
+		- /repository/MemberRepository.java 인터페이스 생성
+		- /service/MemberService.java 생성 setMember() 메서드 작성
 
 
 
