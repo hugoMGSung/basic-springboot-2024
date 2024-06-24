@@ -7,6 +7,14 @@
             <div class="card-body">
                 <div th:text="${board.content}" class="card-text"></div>
                 <div class="d-flex justify-content-end">
+                    <!-- 수정일자 표시 뱃지 -->
+                    <div th:if="${board.modifyDate != null}" class="badge text-bg-primary p-2">
+                        <div class="mb-2">
+                            <span>최종수정일</span>
+                        </div>
+                        <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+
                     <!-- 작성자와 작성일 표시하는 뱃지 -->
                     <div class="badge text-bg-secondary p-2">
                         <div class="mb-2">
@@ -30,9 +38,19 @@
         <!-- 댓글리스트 영역 -->
         <h5 th:text="|${#lists.size(board.replyList)}개의 댓글이 존재합니다.|" class="border-bottom my-3 py-2"></h5>
         <div th:each="reply : ${board.replyList}" class="card border-success shadow-sm my-3">
+            <!-- 댓글 위치 -->
+            <a th:id="|reply_${reply.rno}|"></a>
             <div class="card-body">
                 <div th:text="${reply.content}" class="card-text"></div>
                 <div class="d-flex justify-content-end">
+                    <!-- 수정일자 표시 뱃지 -->
+                    <div th:if="${reply.modifyDate != null}" class="badge text-bg-primary p-2">
+                        <div class="mb-2">
+                            <span>최종수정일</span>
+                        </div>
+                        <div th:text="${#temporals.format(reply.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+
                     <!-- 작성자와 작성일 표시하는 뱃지 -->
                     <div class="badge text-bg-secondary p-2">
                         <div class="mb-2">
@@ -61,7 +79,7 @@
             
             <div class="d-flex justify-content-end mt-2">
                 <input type="submit" value="댓글등록" class="btn btn-sm btn-primary mx-1">
-                <a href="/board/list" class="btn btn-sm btn-secondary">목록</a>
+                <a th:href="${prevUrl}" class="btn btn-sm btn-secondary">목록</a>
             </div>
         </form>
     </div>

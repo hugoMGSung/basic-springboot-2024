@@ -437,11 +437,32 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 		- /templates/board/detail.html 댓글 수정, 삭제버튼 추가
 		- /service/ReplyService.java 수정, 삭제관련 메서드 추가
 		- /controller/ReplyController.java modify GET, POST메서드, 삭제 GET메서드 작성
-		- /tempates/reply/modify.html 생성, 작성
+		- /templates/reply/modify.html 생성, 작성
+		
+		- /templates/board/detail.html에 게시글, 댓글 수정날짜 표시
+
+	2. 앵커기능
+		- 추가, 수정, 삭제 시 이전 자신의 위치로 되돌아가는 기능
+		- /template/board/detail.html 댓글 마다 앵커링 추가
+		- /controller/ReplyController.java modify() Post매핑, return에 앵커링 추가
+		- /service/ReplyService.java 생성메서드 void -> Reply 변경
+		- /controller/ReplyController.java create Post메서드를 변경
+
+		- /controller/BoardController.java detail() 메서드 수정
+
+	3. 검색 기능
+		- /service/BoardService.java searchBoard() 메서드 추가
+		- /repository/BoardRepository.java findAll() 메서드 추가
+		- /service/BoardService.java getList() 메서드 추가생성
+		- /controller/BoardController.java list() 메서드 추가
+		- /templates/board/list.html 검색창 추가, searchForm 폼영역 추가, **페이징영역 수정, javascript 추가**
+		
 
 
-	- 수정, 삭제
-	- 앵커기능 
+	4. 마크다운 적용
+		- 마크다운 뷰, 마크다운 에디터
+
+
 	- 마크다운 적용, 마크다운에디터 추가
 	- 검색기능
 	- 카테고리 추가(게시판, QnA, 공지사항)

@@ -21,15 +21,19 @@ import com.hugo83.backboard.service.MemberService;
 import com.hugo83.backboard.validation.BoardForm;
 import com.hugo83.backboard.validation.ReplyForm;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 // import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @RequestMapping("/board") // Restful URL은 /board로 시작
 @Controller
+@Log4j2
 public class BoardController {
     
     private final BoardService boardService; // 중간 연결책 
@@ -37,23 +41,38 @@ public class BoardController {
 
     // @RequestMapping("/list", method=RequestMethod.GET) // 아래와 동일 기능
     // Model -> controller에 있는 객체를 View로 보내주는 역할을 하는 객체
+    // @GetMapping("/list")
+    // public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    //     // List<Board> boardList = this.boardService.getList();
+    //     // model.addAttribute("boardList", boardList); // thymeleaf, mustache, jsp등 view로 보내는 기능!!!
+
+    //     Page<Board> paging = this.boardService.getList(page); 
+    //     model.addAttribute("paging", paging); // 페이징된 보드를 view로 전달!
+
+    //     return "board/list"; // templates/board/list.html 렌더링해서 리턴하라!
+    // }
+    // 24.06.24 list 새로 변경
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        // List<Board> boardList = this.boardService.getList();
-        // model.addAttribute("boardList", boardList); // thymeleaf, mustache, jsp등 view로 보내는 기능!!!
-
-        Page<Board> paging = this.boardService.getList(page); 
-        model.addAttribute("paging", paging); // 페이징된 보드를 view로 전달!
-
-        return "board/list"; // templates/board/list.html 렌더링해서 리턴하라!
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "kw", defaultValue = "") String keyword) {
+        Page<Board> paging = this.boardService.getList(page, keyword);  // 검색추가
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", keyword);
+        
+        return "board/list";
     }
+
 
     // 댓글 검증을 추가하려면 매개변수로 ReplyForm을 전달!!
     @GetMapping("/detail/{bno}")
     public String detail(Model model, 
-                         @PathVariable("bno") Long bno, ReplyForm replyForm) {
+                         @PathVariable("bno") Long bno, ReplyForm replyForm, HttpServletRequest request) {
+        
+        String prevUrl = request.getHeader("referer");  // 이전페이지 변수에 담기
+        log.info(String.format("▶▶▶▶▶ 현재 이전 페이지 : %s", prevUrl));        
         Board board = this.boardService.getBoard(bno);
         model.addAttribute("board", board);
+        model.addAttribute("prevUrl", prevUrl); // 이전 페이지 URL 뷰에 전달
         return "board/detail";
     }
 
