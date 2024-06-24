@@ -1,5 +1,6 @@
 package com.hugo83.backboard.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hugo83.backboard.entity.Board;
 import com.hugo83.backboard.entity.Member;
+import com.hugo83.backboard.entity.Reply;
 import com.hugo83.backboard.service.BoardService;
 import com.hugo83.backboard.service.MemberService;
 import com.hugo83.backboard.service.ReplyService;
@@ -21,6 +23,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
+
 
 @RequestMapping("/reply")
 @RequiredArgsConstructor
@@ -49,4 +55,43 @@ public class ReplyController {
         log.info("ReplyController 댓글저장 처리완료!!");
         return String.format("redirect:/board/detail/%s", bno);
     }
+
+    @PreAuthorize("isAuthenticated()") // 로그인시만 작성가능
+    @GetMapping("/modify/{rno}")
+    public String modify(ReplyForm replyForm, @PathVariable("rno") Long rno, Principal principal) {
+        Reply reply = this.replyService.getReply(rno);
+
+        if (!reply.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        replyForm.setContent(reply.getContent());
+        return "reply/modify"; // templates/reply/modify.html
+    }
+    
+    @PreAuthorize("isAuthenticated()") // 로그인시만 작성가능
+    @PostMapping("/modify/{rno}")
+    public String modify(@Valid ReplyForm replyForm, @PathVariable("rno") Long rno, BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            return "reply/modify";
+        }
+        Reply reply = this.replyService.getReply(rno);
+        if (!reply.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.replyService.modReply(reply, replyForm.getContent());
+        return String.format("redirect:/board/detail/%s", reply.getBoard().getBno());
+    }
+
+    @PreAuthorize("isAuthenticated()") // 로그인시만 작성가능
+    @GetMapping("/delete/{rno}")
+    public String delete(@PathVariable("rno") Long rno, Principal principal) {
+        Reply reply = this.replyService.getReply(rno);
+        if (!reply.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");            
+        }
+
+        this.replyService.remReply(reply);
+        return String.format("redirect:/board/detail/%s", reply.getBoard().getBno());
+    }
+    
 }

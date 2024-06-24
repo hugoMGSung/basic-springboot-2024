@@ -431,6 +431,15 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 		- /controller/BoardController.java, modify() POST 메서드 작성
 			- html에는 BoardForm 객체 값이 들어있음. 컨트롤러에 받아서 Board객체 다시 만들어 서비스로 전달
 
+		- /service/BoardService.java 삭제관련 메서드 추가
+		- /controller/BoardController.java delete() GET 메서드 작성
+
+		- /templates/board/detail.html 댓글 수정, 삭제버튼 추가
+		- /service/ReplyService.java 수정, 삭제관련 메서드 추가
+		- /controller/ReplyController.java modify GET, POST메서드, 삭제 GET메서드 작성
+		- /tempates/reply/modify.html 생성, 작성
+
+
 	- 수정, 삭제
 	- 앵커기능 
 	- 마크다운 적용, 마크다운에디터 추가

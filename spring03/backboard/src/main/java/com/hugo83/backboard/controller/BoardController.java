@@ -26,8 +26,6 @@ import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 // import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RequiredArgsConstructor
 @RequestMapping("/board") // Restful URL은 /board로 시작
@@ -111,5 +109,16 @@ public class BoardController {
         this.boardService.modBoard(board, boardForm.getTitle(), boardForm.getContent());
         return String.format("redirect:/board/detail/%s", bno);
     }
-    
+
+    @PreAuthorize("isAuthenticated()") // 로그인시만 작성가능
+    @GetMapping("/delete/{bno}")
+    public String delete(@PathVariable("bno") Long bno, Principal principal) {
+        Board board = this.boardService.getBoard(bno);
+        if (!board.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+
+        this.boardService.remBoard(board); // 삭제
+        return "redirect:/";
+    }
 }

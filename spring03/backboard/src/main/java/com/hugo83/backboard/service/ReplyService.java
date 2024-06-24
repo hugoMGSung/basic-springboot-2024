@@ -1,9 +1,11 @@
 package com.hugo83.backboard.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.hugo83.backboard.common.NotFoundException;
 import com.hugo83.backboard.entity.Board;
 import com.hugo83.backboard.entity.Member;
 import com.hugo83.backboard.entity.Reply;
@@ -26,5 +28,27 @@ public class ReplyService {
         reply.setWriter(writer); // 작성자 추가
         this.replyRepository.save(reply);
         log.info("댓글 객체 저장성공!");       
+    }
+
+    // 댓글 수정하려고 댓글을 가져오기
+    public Reply getReply(Long rno) {
+        Optional<Reply> reply = this.replyRepository.findById(rno);
+        if (reply.isPresent()) 
+            return reply.get();
+        else
+            throw new NotFoundException("Reply not found");
+    }
+
+    // 댓글 수정처리
+    public void modReply(Reply reply, String content) {
+        reply.setContent(content);
+        reply.setModifyDate(LocalDateTime.now());
+
+        this.replyRepository.save(reply);
+    }
+
+    // 댓글 삭제
+    public void remReply(Reply reply) {
+        this.replyRepository.delete(reply);
     }
 }

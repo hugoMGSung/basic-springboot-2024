@@ -64,4 +64,8 @@ public class BoardService {
 
         this.boardRepository.save(board); // PK가 있으면 UPDATE
     }
+
+    public void remBoard(Board board) {
+        this.boardRepository.delete(board); // 삭제 끝!
+    }
 }
