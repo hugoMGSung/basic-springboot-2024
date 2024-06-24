@@ -14,7 +14,17 @@
                                   th:text="${board.writer.username}"></span>
                         </div>
                         <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
-                    </div>
+                    </div>                    
+                </div>
+                <!-- 수정삭제 버튼 영역 -->
+                <div class="my-3 d-flex justify-content-end">
+                    <a th:href="@{|/board/modify/${board.bno}|}" 
+                       th:if="${board.writer != null and #authentication.getPrincipal().getUsername() == board.writer.username}"
+                       sec:authorize="isAuthenticated()"
+                       class="btn btn-sm btn-outline-success mx-2">수정</a>
+                    <a th:if="${board.writer != null and #authentication.getPrincipal().getUsername() == board.writer.username}"
+                       sec:authorize="isAuthenticated()"
+                       href="#" class="btn btn-sm btn-outline-danger">삭제</a>
                 </div>
             </div>
         </div>
