@@ -53,6 +53,15 @@ public class BoardService {
                         .createDate(LocalDateTime.now()).build();
         
         board.setWriter(writer);
-        this.boardRepository.save(board);
+        this.boardRepository.save(board); // PK가 없으면 INSERT
+    }
+
+    // 24.06.24. modBoard 추가작성
+    public void modBoard(Board board, String title, String content) {
+        board.setTitle(title);
+        board.setContent(content);
+        board.setModifyDate(LocalDateTime.now()); // 수정된 일시 추가하려면
+
+        this.boardRepository.save(board); // PK가 있으면 UPDATE
     }
 }
