@@ -52,8 +52,9 @@ public class BoardService {
         sorts.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // pageSize를 동적으로도 변경할 수 있음.나중에...
 
-        Specification<Board> spec = searchBoard(keyword);
-        return this.boardRepository.findAll(spec, pageable);
+        // Specification<Board> spec = searchBoard(keyword);
+        // return this.boardRepository.findAll(spec, pageable); // Specification 인터페이스로 쿼리 생성로직 만들어서 
+        return this.boardRepository.findAllByKeyword(keyword, pageable);
     }
 
     public Board getBoard(Long bno) {
@@ -94,6 +95,7 @@ public class BoardService {
         return new Specification<Board>() {
             private static final long serialVersionUID = 1L; // 필요한 값이라서 추가
 
+            @SuppressWarnings("null")
             @Override
             public Predicate toPredicate(Root<Board> b, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 // query를 JPA로 생성

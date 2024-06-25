@@ -457,15 +457,47 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 		- /controller/BoardController.java list() 메서드 추가
 		- /templates/board/list.html 검색창 추가, searchForm 폼영역 추가, **페이징영역 수정, javascript 추가**
 		
+## 10일차
+- Spring Boot JPA 프로젝트 개발 계속
+	1. 검색 기능 -> JPA Query
+		- @Query 어노테이션으로 직접 쿼리를 작성
+		- 단순 쿼리가 아니라서 JpaRepository가 자동으로 만들어 줄 수 없을 때 사용
+		- DB의 표준쿼리와 차이가 있음(Java Entity와 일치)
+		- /repository/BoardRepository.java, findAllByKeyword() 메서드 추가
+		- JPA Query @Query("")에 작성
+		- /service/BoardService.java getList() 수정
+
+	2. 마크다운 적용
+		- Wysiwyg 에디터 - CKEditor(https://ckeditor.com/), TinyMCE
+		- simplemde(https://simplemde.com/) 깃헙에 CDN 링크복사 layout.html 링크추가
+		- create.html textarea id content를 simplemde로 변환하는 js 추가
+		- detail.html textarea content simplemde js 추가
+
+		- (설정) build.gradle 마크다운 뷰어 디펜던시 추가
+		- /common/CommonUtil.java 생성
+		- /templates/board/detail.html 마크다운 뷰어 적용
+
+		<img src="https://raw.githubusercontent.com/hugoMGSung/basic-springboot-2024/main/images/sp009.png" width="730">
+		
+
+		<img src="https://raw.githubusercontent.com/hugoMGSung/basic-springboot-2024/main/images/sp010.png" width="730">	
 
 
-	4. 마크다운 적용
-		- 마크다운 뷰, 마크다운 에디터
+	3. 카테고리 추가
+		- /entity/Category.java 클래스 생성
+		- /repository/CategoryRepository.java 인터페이스 생성
+		- /service/CategoryService.java 생성
+		- /service/BoardService.java 조회조건에 카테고리 추가 수정
+		- 카테고리를 자유게시판, 질문응답게시판 분리
+		- /templates/layout.html navbar.html 추가기입
+		- /controller/BoardController.java GetMapping 메서드에 카테고리를 추가
 
-
-	- 마크다운 적용, 마크다운에디터 추가
-	- 검색기능
-	- 카테고리 추가(게시판, QnA, 공지사항)
+	4. 조회수 표시
+		- /entity/Board.java 조회수 필드 추가
+		- /service/BoardService.java 메서드 추가
+		- /controller/BoardController.java detail()메서드 수정
+		- /templates/board/list.html 조회수 컬럼 추가
+	
 	- 비밀번호 찾기, 비밀번호 변경
 	- 조회수 추가
 
