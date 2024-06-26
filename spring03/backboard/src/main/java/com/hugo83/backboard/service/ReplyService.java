@@ -21,7 +21,6 @@ public class ReplyService {
     
     private final ReplyRepository replyRepository;
 
-
     // return이 void -> Reply
     public Reply setReply(Board board, String content, Member writer) {
         // 빌더를 사용한 방식
