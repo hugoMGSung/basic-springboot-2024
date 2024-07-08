@@ -921,8 +921,29 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 	6. 로그인한 사용자 헤더에 표시
 
 
-
+## Spring AI
+- Spring AI
+	1. OpenAI Key 발급
+		- https://platform.openai.com/account/api-keys 진입 로그인
+		- + Create new secret key 클릭 생성
+		- 키복사
 	
-	
+	2. 프로젝트 생성
+		- Spring Web, OpenAI 디펜던시 추가
 
+		```gradle
+		dependencies {
+			implementation 'org.springframework.boot:spring-boot-starter-web'
+			implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+			testImplementation 'org.springframework.boot:spring-boot-starter-test'
+			testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+		}
+		```
+		- application.properties 에 OpenAPI 키 추가
+			- 키를 입력하지 않으면 톰캣 서버 실행안됨
+
+	3. 아무런 라이브러리 사용없이 구현하는 방법
+		- /controller/OpenAiRestController.java 생성
+
+			<img src="https://raw.githubusercontent.com/hugoMGSung/basic-springboot-2024/main/images/sp015.png" width="730">
 
