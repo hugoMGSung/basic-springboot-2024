@@ -922,7 +922,7 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 
 
 ## Spring AI
-- Spring AI
+- Open AI 1
 	1. OpenAI Key 발급
 		- https://platform.openai.com/account/api-keys 진입 로그인
 		- + Create new secret key 클릭 생성
@@ -947,3 +947,15 @@ Java 빅데이터 개발자과정 Spring Boot 학습 리포지토리
 
 			<img src="https://raw.githubusercontent.com/hugoMGSung/basic-springboot-2024/main/images/sp015.png" width="730">
 
+
+- Open AI 2
+	1. /config/OpenAIConfig.java 생성
+	2. /dto/Message.java 생성
+	3. /dto/ChatGPTRequest.java 생성
+	4. /dto/ChatGPTResponse.java 생성
+
+	5. /controller/CustomBotController.java 생성
+
+	6. 결과\
+
+		<img src="https://raw.githubusercontent.com/hugoMGSung/basic-springboot-2024/main/images/sp016.png" width="730">

@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/ai")
 public class OpenAiRestController {
 	
-	@GetMapping("/translate")
+	@SuppressWarnings("rawtypes")
+  @GetMapping("/translate")
 	public ResponseEntity<String> data(@RequestParam(name = "query",defaultValue = "Hello") String query){
         RestTemplate restTemplate=new RestTemplate();
         Map<String,String> message=new HashMap<>();
